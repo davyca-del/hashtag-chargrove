@@ -155,24 +155,26 @@
   button.copy:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
   .foot { font-size: 0.86rem; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 16px; }
 
-  a.fast {
-    display: flex; flex-direction: column; gap: 6px;
-    text-decoration: none; color: inherit;
-    background: var(--green); border-radius: 10px; padding: 18px 20px;
+  .fast {
+    display: flex; flex-direction: column; gap: 9px; align-items: flex-start;
+    background: var(--card); border: 2px solid var(--green);
+    border-radius: 10px; padding: 18px 20px;
   }
-  a.fast:hover { background: var(--green-deep); }
-  a.fast:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
-  .fast-k { font-family: Fraunces, Georgia, serif; font-weight: 700; font-size: 1.45rem; color: var(--card); }
-  .fast-b { font-size: 0.98rem; color: color-mix(in srgb, var(--card) 88%, var(--green)); }
-  .fast-go { font-weight: 700; font-size: 1rem; color: var(--card); margin-top: 3px; }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .fast-k,
-    :root:not([data-theme="light"]) .fast-go { color: #10201A; }
-    :root:not([data-theme="light"]) .fast-b { color: #1E3A2E; }
+  .fast-k { font-family: Fraunces, Georgia, serif; font-weight: 700; font-size: 1.45rem; color: var(--green-deep); }
+  .fast-b { font-size: 0.98rem; color: var(--ink-soft); }
+  a.fast-go {
+    display: inline-block; text-decoration: none;
+    font-weight: 700; font-size: 1.02rem;
+    background: var(--green); color: var(--card);
+    border: none; border-radius: 6px; padding: 12px 22px; margin-top: 2px;
   }
-  :root[data-theme="dark"] .fast-k,
-  :root[data-theme="dark"] .fast-go { color: #10201A; }
-  :root[data-theme="dark"] .fast-b { color: #1E3A2E; }
+  a.fast-go:hover { background: var(--green-deep); }
+  a.fast-go:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+  ul.points li { display: flex; gap: 14px; align-items: flex-start; }
+  .pico { flex: none; width: 46px; height: 46px; color: var(--green); }
+  .pico svg { width: 100%; height: 100%; display: block; }
+  .ptext { min-width: 0; }
 
   .form {
     background: var(--card); border: 1px solid var(--line); border-radius: 10px;
@@ -273,11 +275,11 @@
     <span>Full Council votes</span>
   </div>
 
-  <a class="fast" href="#write">
+  <div class="fast">
     <span class="fast-k">Sixty seconds is enough</span>
     <span class="fast-b">Three sentences in your own words is a real objection. The form fills in every councillor's address and opens the message in your own email app — you just press send.</span>
-    <span class="fast-go">Write your email →</span>
-  </a>
+    <a class="fast-go" href="#write">Write your email</a>
+  </div>
 
   <section>
     <h2>What to do</h2>
@@ -312,11 +314,12 @@
   <section>
     <h2>Points you might make</h2>
     <ul class="points">
-      <li><b>The evidence is fifteen years old</b><span>The Green Belt assessment behind the plan dates from 2011 and the landscape work from 2013. The Green Belt Review promised for August 2026 still has not been published. Councillors are being asked to release Green Belt land before the evidence meant to inform that decision exists.</span></li>
-      <li><b>This is the narrowest point of the gap</b><span>It is the only Green Belt keeping Cheltenham and Gloucester apart, and Up Hatherley Way is the last defensible edge. Once building crosses it, nothing obvious stops the next application.</span></li>
-      <li><b>The roads and services are already full</b><span>The A46 Shurdington Road is at or beyond capacity at peak times and cannot be widened. The schools, surgery and shops built for the last expansion are at capacity too.</span></li>
-      <li><b>The Chargrove Triangle floods</b><span>It is the parcel in this area most at risk of flooding, and parts of Warden Hill already flood. Surfacing land that currently holds water moves the risk onto existing homes.</span></li>
-      <li><b>There are alternatives</b><span>Sites to the north and north-west of Cheltenham could meet the borough's requirement several times over, where the gap between the two towns is far wider.</span></li>
+      <li><span class="pico"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="10" y="22" width="80" height="66" rx="7" fill="none" stroke="currentColor" stroke-width="7"/><path d="M10 29a7 7 0 0 1 7-7h66a7 7 0 0 1 7 7v14H10z" fill="currentColor"/><rect x="26" y="10" width="8" height="20" rx="4" fill="currentColor"/><rect x="66" y="10" width="8" height="20" rx="4" fill="currentColor"/><text x="50" y="76" font-family="Helvetica,Arial,sans-serif" font-size="30" font-weight="bold" fill="currentColor" text-anchor="middle">2011</text></svg></span><span class="ptext"><b>The evidence is fifteen years old</b><span>The Green Belt assessment behind the plan dates from 2011 and the landscape work from 2013. The Green Belt Review promised for August 2026 still has not been published. Councillors are being asked to release Green Belt land before the evidence meant to inform that decision exists.</span></span></li>
+      <li><span class="pico"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="2" y="60" width="16" height="26" fill="currentColor" opacity="0.35"/><rect x="82" y="60" width="16" height="26" fill="currentColor" opacity="0.35"/><rect x="0" y="86" width="100" height="6" fill="currentColor" opacity="0.35"/><circle cx="36" cy="46" r="17" fill="currentColor"/><rect x="32" y="56" width="8" height="30" fill="currentColor"/><circle cx="63" cy="54" r="13" fill="currentColor"/><rect x="60" y="62" width="6" height="24" fill="currentColor"/></svg></span><span class="ptext"><b>This is the narrowest point of the gap</b><span>It is the only Green Belt keeping Cheltenham and Gloucester apart, and Up Hatherley Way is the last defensible edge. Once building crosses it, nothing obvious stops the next application.</span></span></li>
+      <li><span class="pico"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="18" width="92" height="64" rx="5" fill="currentColor" opacity="0.13"/><line x1="8" y1="50" x2="92" y2="50" stroke="currentColor" stroke-width="4" stroke-dasharray="9 8" opacity="0.5"/><g fill="currentColor"><path d="M14 40l4-9a5 5 0 0 1 4-3h18a5 5 0 0 1 4 3l4 9a4 4 0 0 1 2 3v4a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2v-4a4 4 0 0 1 2-3z"/><circle cx="20" cy="49" r="4"/><circle cx="42" cy="49" r="4"/><path d="M56 40l4-9a5 5 0 0 1 4-3h18a5 5 0 0 1 4 3l4 9a4 4 0 0 1 2 3v4a2 2 0 0 1-2 2H56a2 2 0 0 1-2-2v-4a4 4 0 0 1 2-3z"/><circle cx="62" cy="49" r="4"/><circle cx="84" cy="49" r="4"/><path d="M34 72l4-9a5 5 0 0 1 4-3h18a5 5 0 0 1 4 3l4 9a4 4 0 0 1 2 3v4a2 2 0 0 1-2 2H34a2 2 0 0 1-2-2v-4a4 4 0 0 1 2-3z"/><circle cx="40" cy="81" r="4"/><circle cx="62" cy="81" r="4"/></g></svg></span><span class="ptext"><b>The roads and services are already full</b><span>The A46 Shurdington Road is at or beyond capacity at peak times and cannot be widened. The schools, surgery and shops built for the last expansion are at capacity too.</span></span></li>
+      <li><span class="pico"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M26 48 50 26l24 22v26H26z" fill="currentColor" opacity="0.45"/><rect x="43" y="56" width="14" height="18" fill="currentColor" opacity="0.2"/><path d="M2 64c12-8 24 8 36 0s24 8 36 0 12-4 24 2v28H2z" fill="currentColor" opacity="0.18"/><path d="M2 64c12-8 24 8 36 0s24 8 36 0 12-4 24 2" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M2 80c12-8 24 8 36 0s24 8 36 0 12-4 24 2" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" opacity="0.6"/></svg></span><span class="ptext"><b>The Chargrove Triangle floods</b><span>It is the parcel in this area most at risk of flooding, and parts of Warden Hill already flood. Surfacing land that currently holds water moves the risk onto existing homes.</span></span></li>
+      <li><span class="pico"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 92c-19 0-26-16-24-33S38 30 50 30s22 12 24 29-5 33-24 33z" fill="currentColor"/><path d="M33 35c-4-9-4-16-1-22 4 6 7 13 8 20zM67 35c4-9 4-16 1-22-4 6-7 13-8 20z" fill="currentColor"/><circle cx="41" cy="52" r="7" fill="var(--card)"/><circle cx="59" cy="52" r="7" fill="var(--card)"/><circle cx="41" cy="52" r="3" fill="currentColor"/><circle cx="59" cy="52" r="3" fill="currentColor"/><path d="M50 58l-4 6h8z" fill="currentColor"/><path d="M14 22c-3-5-8-8-13-8 3 2 4 5 3 8-3-3-8-5-12-4 4 1 7 4 8 8 3-1 7-1 10 1 3-2 7-2 10-1 1-4 4-7 8-8-4-1-9 1-12 4 1-3 2-6 3-8-5 0-10 3-13 8z" transform="translate(58 -2) scale(0.62)" fill="currentColor"/></svg></span><span class="ptext"><b>Protected wildlife lives here</b><span>Bats are European Protected Species and owls are protected year-round. There are Tree Preservation Orders on the site, and residents have recorded deer, owls, bats and woodpeckers using these fields.</span></span></li>
+      <li><span class="pico"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="44" y="20" width="9" height="66" fill="currentColor"/><path d="M53 26h33l11 12-11 12H53z" fill="currentColor"/><text x="70" y="43" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="bold" fill="var(--card)" text-anchor="middle">NORTH</text><path d="M44 58H17L6 70l11 12h27z" fill="currentColor" opacity="0.35"/></svg></span><span class="ptext"><b>There are alternatives</b><span>Sites to the north and north-west of Cheltenham could meet the borough's requirement several times over, where the gap between the two towns is far wider.</span></span></li>
     </ul>
     <p style="color:var(--ink-soft);font-size:0.95rem">Pick the one or two that matter most to you. A short letter about the flooding on your own street carries more weight than a long one covering everything.</p>
   </section>
