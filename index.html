@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Up to 4,000 homes have been discussed for the fields around Chargrove Lane. Cheltenham councillors vote in October. Here is who to write to and what to say.">
+<meta name="description" content="Up to 4,000 homes have been discussed for the fields around Chargrove Lane. Cheltenham councillors vote in October. Sixty seconds to write to them.">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="Speak Up For Chargrove">
-<meta property="og:description" content="Councillors vote in October on whether Chargrove goes into the Strategic and Local Plan. Here is who to write to and what to say.">
+<meta property="og:description" content="Councillors vote in October on whether Chargrove goes into the Strategic and Local Plan. Sixty seconds to write to them in your own words.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232C5F4A'/%3E%3Cpath d='M16 6c5 4 8 7 8 11a8 8 0 0 1-16 0c0-4 3-7 8-11z' fill='%23A9D6BD'/%3E%3C/svg%3E">
 <title>Speak Up For Chargrove</title>
@@ -154,6 +154,62 @@
   button.copy:hover { background: var(--green-deep); }
   button.copy:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
   .foot { font-size: 0.86rem; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 16px; }
+
+  a.fast {
+    display: flex; flex-direction: column; gap: 6px;
+    text-decoration: none; color: inherit;
+    background: var(--green); border-radius: 10px; padding: 18px 20px;
+  }
+  a.fast:hover { background: var(--green-deep); }
+  a.fast:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+  .fast-k { font-family: Fraunces, Georgia, serif; font-weight: 700; font-size: 1.45rem; color: var(--card); }
+  .fast-b { font-size: 0.98rem; color: color-mix(in srgb, var(--card) 88%, var(--green)); }
+  .fast-go { font-weight: 700; font-size: 1rem; color: var(--card); margin-top: 3px; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .fast-k,
+    :root:not([data-theme="light"]) .fast-go { color: #10201A; }
+    :root:not([data-theme="light"]) .fast-b { color: #1E3A2E; }
+  }
+  :root[data-theme="dark"] .fast-k,
+  :root[data-theme="dark"] .fast-go { color: #10201A; }
+  :root[data-theme="dark"] .fast-b { color: #1E3A2E; }
+
+  .form {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 18px; display: flex; flex-direction: column; gap: 18px;
+  }
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  .field label { font-weight: 700; font-size: 0.97rem; }
+  .hint { font-size: 0.87rem; color: var(--ink-soft); }
+  input[type="text"], textarea {
+    font: inherit; font-size: 1rem; color: var(--ink);
+    background: var(--paper); border: 1px solid var(--line); border-radius: 6px;
+    padding: 10px 12px; width: 100%; box-sizing: border-box;
+  }
+  textarea { resize: vertical; line-height: 1.5; }
+  input[type="text"]:focus-visible, textarea:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; }
+  .subjrow { display: flex; flex-wrap: wrap; gap: 8px; }
+  .subjrow input { flex: 1 1 15rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip {
+    font: inherit; font-size: 0.88rem; font-weight: 600; cursor: pointer;
+    background: var(--paper); color: var(--green); border: 1px solid var(--green);
+    border-radius: 999px; padding: 6px 13px;
+  }
+  .chip[aria-pressed="true"], .chip:hover { background: var(--green); color: var(--card); }
+  .chip:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+  .check { display: flex; gap: 10px; align-items: flex-start; font-size: 0.9rem; color: var(--ink-soft); }
+  .check input { margin-top: 3px; flex: none; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  button.primary, button.ghost {
+    font: inherit; font-weight: 700; font-size: 0.97rem; cursor: pointer;
+    border-radius: 6px; padding: 11px 18px;
+  }
+  button.primary { background: var(--green); color: var(--card); border: none; }
+  button.primary:hover { background: var(--green-deep); }
+  button.ghost { background: transparent; color: var(--green); border: 1px solid var(--green); }
+  button.ghost:hover { background: var(--paper); }
+  button.primary:focus-visible, button.ghost:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 <style>
@@ -179,6 +235,12 @@
     <strong>19 October</strong>
     <span>Full Council votes</span>
   </div>
+
+  <a class="fast" href="#write">
+    <span class="fast-k">Sixty seconds is enough</span>
+    <span class="fast-b">Three sentences in your own words is a real objection. The form fills in every councillor's address and opens the message in your own email app — you just press send.</span>
+    <span class="fast-go">Write your email →</span>
+  </a>
 
   <section>
     <h2>What to do</h2>
@@ -220,6 +282,59 @@
       <li><b>There are alternatives</b><span>Sites to the north and north-west of Cheltenham could meet the borough's requirement several times over, where the gap between the two towns is far wider.</span></li>
     </ul>
     <p style="color:var(--ink-soft);font-size:0.95rem">Pick the one or two that matter most to you. A short letter about the flooding on your own street carries more weight than a long one covering everything.</p>
+  </section>
+
+  <section id="write">
+    <h2>Write your email</h2>
+    <p style="color:var(--ink-soft);font-size:0.96rem">This fills in the addresses and opens the message in your own email app, so it arrives from you. Nothing is sent until you press send yourself.</p>
+
+    <div class="form">
+      <div class="field">
+        <label for="nm">Your name</label>
+        <input id="nm" type="text" autocomplete="name" placeholder="Jane Smith">
+      </div>
+      <div class="field">
+        <label for="ad">Your address, including postcode</label>
+        <input id="ad" type="text" autocomplete="street-address" placeholder="12 Chargrove Lane, Cheltenham GL51 0AA">
+        <p class="hint">Councillors need this to see you are a local resident.</p>
+      </div>
+
+      <div class="field">
+        <label for="subj">Subject</label>
+        <div class="subjrow">
+          <input id="subj" type="text">
+          <button type="button" class="ghost" id="shuffle">Try another</button>
+        </div>
+        <p class="hint">Varied subject lines stop a batch of emails being filtered as one. Edit it if you prefer your own.</p>
+      </div>
+
+      <div class="field">
+        <label for="msg">What you want to say</label>
+        <div class="chips" role="group" aria-label="Prompts to help you start">
+          <button type="button" class="chip" data-prompt="Flooding — where have you seen water standing or running off, and when? Has your street or garden ever flooded?">Flooding</button>
+          <button type="button" class="chip" data-prompt="Wildlife — what have you actually seen on or over these fields? Owls, bats at dusk, woodpeckers, buzzards? Roughly when and how often?">Wildlife</button>
+          <button type="button" class="chip" data-prompt="Traffic — where and when does the A46 back up for you? How long does the school run or your commute take now compared with a few years ago?">Traffic</button>
+          <button type="button" class="chip" data-prompt="The green gap — what would it mean to you if Cheltenham and Gloucester joined up here? What do you use these fields for?">Green Belt</button>
+          <button type="button" class="chip" data-prompt="Doctors and schools — have you struggled to get an appointment or a school place? What happens if several thousand more homes are added?">Services</button>
+          <button type="button" class="chip" data-prompt="The evidence — are you content for councillors to vote on releasing Green Belt using an assessment written in 2011, before the promised review is published?">Evidence</button>
+        </div>
+        <p class="hint" id="promptline">Tap a subject above for a question to get you started. Write the answer in your own words — the prompts are deliberately not text you can copy.</p>
+        <textarea id="msg" rows="9" placeholder="I have lived on Chargrove Lane for eleven years..."></textarea>
+        <p class="hint"><span id="count">0</span> characters. Two or three short paragraphs is plenty.</p>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="bcc" checked>
+        <span>Send a blind copy to HaShTAG so we can keep count of how many people have written. Your email address is visible to us but not to other residents. Untick if you would rather not.</span>
+      </label>
+
+      <div class="actions">
+        <button type="button" class="primary" id="open">Open in my email app</button>
+        <button type="button" class="ghost" id="copyall">Copy it instead</button>
+      </div>
+      <p class="hint" id="status" role="status"></p>
+      <p class="hint">If the button does nothing — which happens with Gmail and other webmail in a browser — use “Copy it instead”, then paste into a new message. The addresses are in the table below.</p>
+    </div>
   </section>
 
   <section>
@@ -266,6 +381,119 @@
 </div>
 
 <script>
+  // ---------------------------------------------------------------------
+  //  EDIT THESE when the real addresses are confirmed.
+  // ---------------------------------------------------------------------
+  var COUNCILLORS = [
+    "councillor.bamford@example.gov.uk",
+    "councillor.baker@example.gov.uk",
+    "councillor.chandler@example.gov.uk",
+    "councillor.horwood@example.gov.uk",
+    "councillor.porter@example.gov.uk",
+    "councillor.stanley@example.gov.uk"
+  ];
+  var GROUP_BCC = "hashtag.chargrove@gmail.com";
+
+  var SUBJECTS = [
+    "Chargrove and the Strategic and Local Plan — a resident's objection",
+    "Please do not allocate Chargrove in the Strategic and Local Plan",
+    "Green Belt at Chargrove: my concerns before the October vote",
+    "A resident's view on the Chargrove fields and the SLP",
+    "The Chargrove allocation — flooding, traffic and the green gap",
+    "Objection to development at Chargrove Lane",
+    "Why I am asking you to oppose the Chargrove allocation",
+    "Chargrove: the last gap between Cheltenham and Gloucester",
+    "Strategic and Local Plan — please keep Chargrove out",
+    "My concerns about building on the Chargrove fields"
+  ];
+
+  (function () {
+    var subj = document.getElementById('subj');
+    var msg = document.getElementById('msg');
+    var nm = document.getElementById('nm');
+    var ad = document.getElementById('ad');
+    var bcc = document.getElementById('bcc');
+    var status = document.getElementById('status');
+    var count = document.getElementById('count');
+    var promptline = document.getElementById('promptline');
+    var lastSubject = -1;
+
+    function pickSubject() {
+      var i = Math.floor(Math.random() * SUBJECTS.length);
+      if (i === lastSubject) i = (i + 1) % SUBJECTS.length;
+      lastSubject = i;
+      subj.value = SUBJECTS[i];
+    }
+    pickSubject();
+    document.getElementById('shuffle').addEventListener('click', pickSubject);
+
+    Array.prototype.forEach.call(document.querySelectorAll('.chip'), function (chip) {
+      chip.setAttribute('aria-pressed', 'false');
+      chip.addEventListener('click', function () {
+        Array.prototype.forEach.call(document.querySelectorAll('.chip'), function (c) {
+          c.setAttribute('aria-pressed', String(c === chip));
+        });
+        promptline.textContent = chip.getAttribute('data-prompt');
+        msg.focus();
+      });
+    });
+
+    msg.addEventListener('input', function () { count.textContent = msg.value.length; });
+
+    function buildBody() {
+      var lines = [];
+      lines.push("Dear Councillors,");
+      lines.push("");
+      lines.push(msg.value.trim());
+      lines.push("");
+      lines.push("I would be grateful if you could let me know your position on including Chargrove in the plan before the vote.");
+      lines.push("");
+      lines.push("Yours sincerely,");
+      lines.push(nm.value.trim());
+      lines.push(ad.value.trim());
+      return lines.join("\n");
+    }
+
+    function validate() {
+      if (!nm.value.trim()) { say("Please add your name — councillors ignore anonymous email."); nm.focus(); return false; }
+      if (!ad.value.trim()) { say("Please add your address so they can see you are a local resident."); ad.focus(); return false; }
+      if (msg.value.trim().length < 80) { say("Please write a little more in your own words — a couple of sentences at least."); msg.focus(); return false; }
+      return true;
+    }
+
+    function say(text) { status.textContent = text; }
+
+    document.getElementById('open').addEventListener('click', function () {
+      if (!validate()) return;
+      var url = "mailto:" + COUNCILLORS.join(",")
+        + "?subject=" + encodeURIComponent(subj.value.trim())
+        + (bcc.checked ? "&bcc=" + encodeURIComponent(GROUP_BCC) : "")
+        + "&body=" + encodeURIComponent(buildBody());
+      if (url.length > 1900) {
+        say("That message is long enough that some email apps will cut it short. Use “Copy it instead”, or shorten it a little.");
+        return;
+      }
+      say("Opening your email app. If nothing happens, use “Copy it instead”.");
+      window.location.href = url;
+    });
+
+    document.getElementById('copyall').addEventListener('click', function () {
+      if (!validate()) return;
+      var text = "To: " + COUNCILLORS.join(", ") + "\n"
+        + (bcc.checked ? "Bcc: " + GROUP_BCC + "\n" : "")
+        + "Subject: " + subj.value.trim() + "\n\n"
+        + buildBody();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(
+          function () { say("Copied. Paste it into a new email."); },
+          function () { say("Your browser blocked copying. Select the text in the box and copy it by hand."); }
+        );
+      } else {
+        say("Your browser blocked copying. Select the text in the box and copy it by hand.");
+      }
+    });
+  })();
+
   (function () {
     var btn = document.getElementById('copybtn');
     var addr = document.getElementById('addr');
