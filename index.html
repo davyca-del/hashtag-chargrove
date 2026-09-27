@@ -210,6 +210,14 @@
   button.ghost { background: transparent; color: var(--green); border: 1px solid var(--green); }
   button.ghost:hover { background: var(--paper); }
   button.primary:focus-visible, button.ghost:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+  input.bad, textarea.bad { border: 2px solid var(--red); background: var(--red-bg); }
+  .note {
+    font-size: 0.95rem; font-weight: 600; border-radius: 8px;
+    padding: 11px 14px; margin: 0;
+  }
+  .note.error { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
+  .note.ok { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber); }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 <style>
@@ -439,7 +447,12 @@
       });
     });
 
-    msg.addEventListener('input', function () { count.textContent = msg.value.length; });
+    msg.addEventListener('input', function () {
+      count.textContent = msg.value.length;
+      msg.classList.remove('bad');
+    });
+    nm.addEventListener('input', function () { nm.classList.remove('bad'); });
+    ad.addEventListener('input', function () { ad.classList.remove('bad'); });
 
     // On a phone or tablet the device's own mail app is the reliable route:
     // Google's web compose URL is built for desktop and often loses the draft.
@@ -476,14 +489,35 @@
       return lines.join("\n");
     }
 
+    function clearBad() {
+      [nm, ad, msg].forEach(function (el) { el.classList.remove('bad'); });
+    }
+
+    function fail(field, text) {
+      clearBad();
+      field.classList.add('bad');
+      say(text, 'error');
+      field.focus({ preventScroll: true });
+      status.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      return false;
+    }
+
     function validate() {
-      if (!nm.value.trim()) { say("Please add your name — councillors ignore anonymous email."); nm.focus(); return false; }
-      if (!ad.value.trim()) { say("Please add your address so they can see you are a local resident."); ad.focus(); return false; }
-      if (msg.value.trim().length < 80) { say("Please write a little more in your own words — a couple of sentences at least."); msg.focus(); return false; }
+      var written = msg.value.trim().length;
+      if (!nm.value.trim()) return fail(nm, "Please add your name at the top — councillors ignore anonymous email.");
+      if (!ad.value.trim()) return fail(ad, "Please add your address, so they can see you are a local resident.");
+      if (written < 60) {
+        return fail(msg, "Please write a bit more in your own words — about " + (60 - written)
+          + " more characters. Two or three sentences is plenty.");
+      }
+      clearBad();
       return true;
     }
 
-    function say(text) { status.textContent = text; }
+    function say(text, kind) {
+      status.textContent = text;
+      status.className = kind === 'error' ? 'note error' : (text ? 'note ok' : 'hint');
+    }
 
     document.getElementById('open').addEventListener('click', function () {
       if (!validate()) return;
@@ -492,10 +526,10 @@
         + (bcc.checked ? "&bcc=" + encodeURIComponent(GROUP_BCC) : "")
         + "&body=" + encodeURIComponent(buildBody());
       if (url.length > 1900) {
-        say("That message is long enough that some email apps will cut it short. Use “Copy it instead”, or shorten it a little.");
+        say("That message is long enough that some email apps will cut it short. Use “Copy it instead”, or shorten it a little.", "error");
         return;
       }
-      say("Opening your email app. If nothing happens, you are probably on webmail — use “Open in Gmail” or “Copy it instead”.");
+      say("Opening your email app… if nothing appears within a few seconds, use “Copy it instead” below.", "ok");
       window.location.href = url;
     });
 
@@ -508,9 +542,9 @@
         + "&body=" + encodeURIComponent(buildBody());
       var win = window.open(url, "_blank", "noopener");
       if (win) {
-        say("Gmail should open in a new tab with the message ready. Check it, then press send.");
+        say("Gmail should open in a new tab with the message ready. Check it, then press send.", "ok");
       } else {
-        say("Your browser blocked the new tab. Allow pop-ups for this page, or use “Copy it instead”.");
+        say("Your browser blocked the new tab. Allow pop-ups for this page, or use “Copy it instead”.", "error");
       }
     });
 
@@ -522,11 +556,11 @@
         + buildBody();
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(
-          function () { say("Copied. Paste it into a new email."); },
-          function () { say("Your browser blocked copying. Select the text in the box and copy it by hand."); }
+          function () { say("Copied. Open your email, start a new message and paste.", "ok"); },
+          function () { say("Your browser blocked copying. Select the text in the box and copy it by hand.", "error"); }
         );
       } else {
-        say("Your browser blocked copying. Select the text in the box and copy it by hand.");
+        say("Your browser blocked copying. Select the text in the box and copy it by hand.", "error");
       }
     });
   })();
