@@ -329,11 +329,12 @@
       </label>
 
       <div class="actions">
-        <button type="button" class="primary" id="open">Open in my email app</button>
+        <button type="button" class="primary" id="opengmail">Open in Gmail</button>
+        <button type="button" class="ghost" id="open">Open in my email app</button>
         <button type="button" class="ghost" id="copyall">Copy it instead</button>
       </div>
       <p class="hint" id="status" role="status"></p>
-      <p class="hint">If the button does nothing — which happens with Gmail and other webmail in a browser — use “Copy it instead”, then paste into a new message. The addresses are in the table below.</p>
+      <p class="hint"><strong>Gmail in a browser?</strong> Use the first button. <strong>Mail on a phone, Outlook or Apple Mail?</strong> Use the second. If neither opens anything, use “Copy it instead” and paste into a new message — the addresses are in the table below.</p>
     </div>
   </section>
 
@@ -473,8 +474,23 @@
         say("That message is long enough that some email apps will cut it short. Use “Copy it instead”, or shorten it a little.");
         return;
       }
-      say("Opening your email app. If nothing happens, use “Copy it instead”.");
+      say("Opening your email app. If nothing happens, you are probably on webmail — use “Open in Gmail” or “Copy it instead”.");
       window.location.href = url;
+    });
+
+    document.getElementById('opengmail').addEventListener('click', function () {
+      if (!validate()) return;
+      var url = "https://mail.google.com/mail/?view=cm&fs=1"
+        + "&to=" + encodeURIComponent(COUNCILLORS.join(","))
+        + (bcc.checked ? "&bcc=" + encodeURIComponent(GROUP_BCC) : "")
+        + "&su=" + encodeURIComponent(subj.value.trim())
+        + "&body=" + encodeURIComponent(buildBody());
+      var win = window.open(url, "_blank", "noopener");
+      if (win) {
+        say("Gmail should open in a new tab with the message ready. Check it, then press send.");
+      } else {
+        say("Your browser blocked the new tab. Allow pop-ups for this page, or use “Copy it instead”.");
+      }
     });
 
     document.getElementById('copyall').addEventListener('click', function () {
