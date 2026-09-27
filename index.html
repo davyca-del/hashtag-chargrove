@@ -334,7 +334,7 @@
         <button type="button" class="ghost" id="copyall">Copy it instead</button>
       </div>
       <p class="hint" id="status" role="status"></p>
-      <p class="hint"><strong>Gmail in a browser?</strong> Use the first button. <strong>Mail on a phone, Outlook or Apple Mail?</strong> Use the second. If neither opens anything, use “Copy it instead” and paste into a new message — the addresses are in the table below.</p>
+      <p class="hint" id="routehint"><strong>Gmail in a browser?</strong> Use “Open in Gmail”. <strong>Outlook or Apple Mail?</strong> Use “Open in my email app”. If neither opens anything, use “Copy it instead” and paste into a new message — the addresses are in the table below.</p>
     </div>
   </section>
 
@@ -440,6 +440,27 @@
     });
 
     msg.addEventListener('input', function () { count.textContent = msg.value.length; });
+
+    // On a phone or tablet the device's own mail app is the reliable route:
+    // Google's web compose URL is built for desktop and often loses the draft.
+    var ua = navigator.userAgent || "";
+    var isApple = /iPhone|iPad|iPod/i.test(ua);
+    var isAndroid = /Android/i.test(ua);
+    var appBtn = document.getElementById('open');
+    var gmailBtn = document.getElementById('opengmail');
+
+    if (isApple || isAndroid) {
+      appBtn.textContent = isApple ? "Open in iPhone Mail" : "Open in your mail app";
+      appBtn.className = 'primary';
+      gmailBtn.className = 'ghost';
+      appBtn.parentNode.insertBefore(appBtn, gmailBtn);
+      document.getElementById('routehint').innerHTML = isApple
+        ? '<strong>Tap the green button.</strong> It opens Mail on your iPhone — or the Gmail app instead, '
+          + 'if that is the mail app you have set as default. Everything is filled in; you just press send. '
+          + 'If nothing opens, use “Copy it instead” and paste into a new message.'
+        : '<strong>Tap the green button.</strong> It opens whichever mail app you normally use, with everything '
+          + 'filled in. If nothing opens, use “Copy it instead” and paste into a new message.';
+    }
 
     function buildBody() {
       var lines = [];
