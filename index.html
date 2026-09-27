@@ -218,6 +218,35 @@
   }
   .note.error { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
   .note.ok { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber); }
+  .note.tooshort {
+    background: var(--red-bg); color: var(--red); border: 2px solid var(--red);
+    font-size: 1.05rem; padding: 14px 16px;
+  }
+
+  .req {
+    display: inline-block; margin-left: 6px; vertical-align: 1px;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--amber-bg); color: var(--amber);
+    border: 1px solid color-mix(in srgb, var(--amber) 45%, transparent);
+    border-radius: 999px; padding: 2px 9px;
+  }
+  .meterwrap { display: flex; flex-direction: column; gap: 6px; }
+  .meter {
+    height: 10px; border-radius: 999px; overflow: hidden;
+    background: color-mix(in srgb, var(--line) 80%, transparent);
+  }
+  .meter span {
+    display: block; height: 100%; width: 0%;
+    background: var(--amber); border-radius: 999px;
+    transition: width .18s ease, background-color .18s ease;
+  }
+  .meter.done span { background: var(--green); }
+  .meter.short span { background: var(--red); }
+  .meterline { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
+  .meterline strong { font-variant-numeric: tabular-nums; }
+  .meterline.done { color: var(--green); font-weight: 600; }
+  .meterline.short { color: var(--red); font-weight: 700; }
+  @media (prefers-reduced-motion: reduce) { .meter span { transition: none; } }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 <style>
@@ -317,7 +346,7 @@
       </div>
 
       <div class="field">
-        <label for="msg">What you want to say</label>
+        <label for="msg">What you want to say <span class="req">minimum 60 characters</span></label>
         <div class="chips" role="group" aria-label="Prompts to help you start">
           <button type="button" class="chip" data-prompt="Flooding — where have you seen water standing or running off, and when? Has your street or garden ever flooded?">Flooding</button>
           <button type="button" class="chip" data-prompt="Wildlife — what have you actually seen on or over these fields? Owls, bats at dusk, woodpeckers, buzzards? Roughly when and how often?">Wildlife</button>
@@ -328,7 +357,10 @@
         </div>
         <p class="hint" id="promptline">Tap a subject above for a question to get you started. Write the answer in your own words — the prompts are deliberately not text you can copy.</p>
         <textarea id="msg" rows="9" placeholder="I have lived on Chargrove Lane for eleven years..."></textarea>
-        <p class="hint"><span id="count">0</span> characters. Two or three short paragraphs is plenty.</p>
+        <div class="meterwrap" id="meterwrap">
+          <div class="meter" id="meter"><span id="bar"></span></div>
+          <p class="meterline" id="countline"><strong>0</strong> of 60 characters needed — about two sentences</p>
+        </div>
       </div>
 
       <label class="check">
@@ -423,7 +455,6 @@
     var ad = document.getElementById('ad');
     var bcc = document.getElementById('bcc');
     var status = document.getElementById('status');
-    var count = document.getElementById('count');
     var promptline = document.getElementById('promptline');
     var lastSubject = -1;
 
@@ -447,10 +478,30 @@
       });
     });
 
+    var MIN = 60;
+    var meter = document.getElementById('meter');
+    var bar = document.getElementById('bar');
+    var countline = document.getElementById('countline');
+
+    function updateMeter(flagShort) {
+      var n = msg.value.trim().length;
+      var pct = Math.min(100, Math.round((n / MIN) * 100));
+      bar.style.width = pct + '%';
+      meter.className = 'meter' + (n >= MIN ? ' done' : (flagShort ? ' short' : ''));
+      countline.className = 'meterline' + (n >= MIN ? ' done' : (flagShort ? ' short' : ''));
+      if (n >= MIN) {
+        countline.innerHTML = '<strong>' + n + '</strong> characters — that is enough, you can send it';
+      } else {
+        countline.innerHTML = '<strong>' + n + '</strong> of ' + MIN
+          + ' characters needed — ' + (MIN - n) + ' to go';
+      }
+    }
+
     msg.addEventListener('input', function () {
-      count.textContent = msg.value.length;
       msg.classList.remove('bad');
+      updateMeter(false);
     });
+    updateMeter(false);
     nm.addEventListener('input', function () { nm.classList.remove('bad'); });
     ad.addEventListener('input', function () { ad.classList.remove('bad'); });
 
@@ -506,9 +557,15 @@
       var written = msg.value.trim().length;
       if (!nm.value.trim()) return fail(nm, "Please add your name at the top — councillors ignore anonymous email.");
       if (!ad.value.trim()) return fail(ad, "Please add your address, so they can see you are a local resident.");
-      if (written < 60) {
-        return fail(msg, "Please write a bit more in your own words — about " + (60 - written)
-          + " more characters. Two or three sentences is plenty.");
+      if (written < MIN) {
+        updateMeter(true);
+        clearBad();
+        msg.classList.add('bad');
+        say("Too short to send. You need " + (MIN - written) + " more characters — "
+            + "about another sentence in your own words.", 'tooshort');
+        msg.focus({ preventScroll: true });
+        document.getElementById('meterwrap').scrollIntoView({ block: 'center', behavior: 'smooth' });
+        return false;
       }
       clearBad();
       return true;
@@ -516,7 +573,9 @@
 
     function say(text, kind) {
       status.textContent = text;
-      status.className = kind === 'error' ? 'note error' : (text ? 'note ok' : 'hint');
+      if (kind === 'tooshort') { status.className = 'note tooshort'; }
+      else if (kind === 'error') { status.className = 'note error'; }
+      else { status.className = text ? 'note ok' : 'hint'; }
     }
 
     document.getElementById('open').addEventListener('click', function () {
